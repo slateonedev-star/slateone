@@ -18,13 +18,13 @@ export function Marquee() {
   return (
     <section
       aria-label="Industries served"
-      className="border-y border-border bg-surface overflow-hidden py-6"
+      className="border-y border-border bg-foreground text-background overflow-hidden py-6"
     >
-      <div className="flex marquee whitespace-nowrap gap-12 text-sm uppercase tracking-[0.22em] text-muted-foreground">
+      <div className="flex marquee whitespace-nowrap gap-12 text-sm uppercase tracking-[0.22em]">
         {row.map((t, i) => (
           <span key={i} className="flex items-center gap-12">
             {t}
-            <span className="text-primary">✦</span>
+            <span className="text-accent text-lg">✦</span>
           </span>
         ))}
       </div>
