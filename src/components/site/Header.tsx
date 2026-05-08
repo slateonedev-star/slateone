@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -17,33 +18,45 @@ export function Header() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "backdrop-blur-xl bg-background/70 border-b border-border/60"
+          ? "backdrop-blur-xl bg-background/75 border-b border-border"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="font-display text-2xl leading-none">chad</span>
-          <span className="text-primary font-display text-2xl leading-none">.</span>
+      <div className="mx-auto max-w-7xl px-5 lg:px-10 h-16 flex items-center justify-between">
+        <a href="#top" className="flex items-center gap-1">
+          <span className="font-display text-3xl leading-none">chad</span>
+          <motion.span
+            animate={{ scale: [1, 1.25, 1] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="inline-block w-2.5 h-2.5 rounded-full bg-accent mb-1"
+          />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">
+            <a
+              key={l.href}
+              href={l.href}
+              className="relative hover:text-foreground transition-colors group"
+            >
               {l.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </nav>
         <a
           href="#contact"
-          className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
+          className="shine group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-semibold hover:bg-foreground/90 transition"
         >
-          Get free preview
+          Free preview
           <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
         </a>
       </div>
-    </header>
+    </motion.header>
   );
 }
