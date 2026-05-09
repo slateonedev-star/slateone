@@ -2,10 +2,10 @@ export function Footer() {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-7xl px-5 lg:px-10 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <span className="font-display text-2xl text-foreground">chad</span>
-          <span className="inline-block w-2 h-2 rounded-full bg-accent" />
-          <span className="ml-3">GTA web designer · est. 2024</span>
+        <div className="flex items-baseline gap-1">
+          <span className="font-display text-2xl text-foreground leading-none">slate</span>
+          <span className="font-display italic text-base text-muted-foreground leading-none">/one</span>
+          <span className="ml-3 text-sm">studio · est. 2024</span>
         </div>
         <div className="flex items-center gap-6">
           <a href="#work" className="hover:text-foreground">Work</a>

@@ -113,18 +113,26 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="relative -mt-6 md:-mt-10 z-10 text-center"
         >
-          <h1 className="font-display leading-[0.82] tracking-tight">
+          <h1 className="font-display leading-[0.82] tracking-tight relative inline-block">
             <BigWord delay={0.2} className="block text-[34vw] md:text-[22vw] lg:text-[17rem] xl:text-[20rem]">
-              chad<span className="text-muted-foreground/60">.</span>
+              slate
             </BigWord>
+            <motion.span
+              initial={{ opacity: 0, x: -20, rotate: -8 }}
+              animate={{ opacity: 1, x: 0, rotate: -6 }}
+              transition={{ delay: 1.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute -bottom-2 md:-bottom-4 right-0 translate-x-[15%] md:translate-x-[40%] font-display italic text-5xl md:text-7xl lg:text-9xl text-foreground"
+            >
+              <span className="text-muted-foreground/50 mr-1">/</span>one
+            </motion.span>
           </h1>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="-mt-2 md:-mt-4 text-[10px] md:text-xs uppercase tracking-[0.42em] text-muted-foreground font-mono"
+            transition={{ delay: 1.4 }}
+            className="mt-6 md:mt-8 text-[10px] md:text-xs uppercase tracking-[0.42em] text-muted-foreground font-mono"
           >
-            ✦ web design studio ✦
+            ✦ web design studio · est. 2024 ✦
           </motion.div>
         </motion.div>
       </motion.div>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const quotes = [
   {
-    q: "Chad rebuilt our site in two days. Calls picked up the same week we went live. Couldn't be happier.",
+    q: "slate/one rebuilt our site in two days. Calls picked up the same week we went live. Couldn't be happier.",
     a: "Onkar Singh",
     r: "Onkar Home Renovations",
   },
