@@ -1,88 +1,82 @@
 import { motion } from "framer-motion";
-import asphalt from "@/assets/work-asphalt.jpg";
-import onkar from "@/assets/work-onkar.jpg";
-import pizza from "@/assets/work-pizza.jpg";
-import emma from "@/assets/work-emma.jpg";
-import spaw from "@/assets/work-spaw.jpg";
 
 const projects = [
   {
     name: "Asphalt WorkX",
-    url: "asphaltworkx.ca",
+    domain: "asphaltworkx.ca",
     href: "https://asphaltworkx.ca",
     tag: "Trades · Redesign",
+    year: "2025",
     blurb:
-      "Full redesign for a GTA paving company. Service grid, before/after gallery, and real reviews — built to convert callers.",
-    img: asphalt,
+      "Full redesign for a GTA paving company. Service grid, before/after gallery, real reviews — built to convert callers.",
   },
   {
     name: "Onkar Home",
-    url: "onkarhome.ca",
+    domain: "onkarhome.ca",
     href: "https://onkarhome.ca",
     tag: "Renovation · Redesign",
+    year: "2025",
     blurb:
-      "Dark luxury rebuild for a renovation company. Gold accents, animated hero and a service-area map. Upgraded from outdated WordPress.",
-    img: onkar,
+      "Dark luxury rebuild for a renovation company. Gold accents, animated hero, service-area map. Upgraded from outdated WordPress.",
   },
   {
     name: "Xpress Pizza House",
-    url: "xpresspizzahousebrampton.com",
+    domain: "xpresspizzahousebrampton.com",
     href: "https://xpresspizzahousebrampton.com",
     tag: "Food & Dining · New build",
+    year: "2025",
     blurb:
-      "Bold restaurant site for a Brampton pizza spot. Animated hero, full menu, hours and direct online-order links. Built from scratch.",
-    img: pizza,
+      "Bold restaurant site for a Brampton pizza spot. Animated hero, full menu, hours, online-order links. Built from scratch.",
   },
   {
     name: "Emma B Artistry",
-    url: "emmabartistry.com",
+    domain: "emmabartistry.com",
     href: "https://emmabartistry.com",
     tag: "Beauty · Redesign",
+    year: "2024",
     blurb:
-      "Editorial rose aesthetic for a Caledon PMU studio. Full-bleed hero, 6 service cards with pricing and a rich gallery.",
-    img: emma,
+      "Editorial rose aesthetic for a Caledon PMU studio. Full-bleed hero, six service cards with pricing, and a rich gallery.",
   },
   {
     name: "Spaw Grooming Salon",
-    url: "spawgrooming.com",
+    domain: "spawgrooming.com",
     href: "https://spawgrooming.com",
     tag: "Pet services · New build",
+    year: "2024",
     blurb:
-      "Soft sage & blush brand for a luxury grooming salon. Animated ticker, 6 service cards, testimonials and a clean booking CTA.",
-    img: spaw,
+      "Soft sage & blush brand for a luxury grooming salon. Animated ticker, six service cards, testimonials, clean booking CTA.",
   },
 ];
 
 export function Work() {
   return (
-    <section id="work" className="relative py-28 lg:py-36">
+    <section id="work" className="relative py-28 lg:py-36 border-t border-border">
       <div className="mx-auto max-w-7xl px-5 lg:px-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="flex items-end justify-between gap-8 mb-16"
+          className="grid md:grid-cols-12 gap-6 items-end mb-16"
         >
-          <div>
-            <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4">
-              Selected work · 2024 – 2026
-            </div>
-            <h2 className="font-display text-5xl md:text-7xl leading-[0.95]">
+          <div className="md:col-span-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-mono">
+            ◆ Index / 005
+          </div>
+          <div className="md:col-span-7">
+            <h2 className="font-display text-5xl md:text-7xl leading-[0.92]">
               Real sites for <em className="not-italic scribble">real businesses.</em>
             </h2>
           </div>
-          <a
-            href="#contact"
-            className="hidden md:inline text-sm text-muted-foreground hover:text-foreground"
-          >
-            Want yours next? →
-          </a>
+          <div className="md:col-span-3 text-sm text-muted-foreground md:text-right">
+            Each project is live. Click any row to visit the site.
+          </div>
         </motion.div>
 
-        <div className="grid gap-10 md:gap-16">
+        {/* Editorial list */}
+        <div className="border-t border-foreground/15">
           {projects.map((p, i) => (
-            <ProjectRow key={p.name} project={p} index={i} reverse={i % 2 === 1} />
+            <ProjectRow key={p.name} project={p} index={i} />
           ))}
         </div>
       </div>
@@ -93,59 +87,63 @@ export function Work() {
 function ProjectRow({
   project,
   index,
-  reverse,
 }: {
   project: (typeof projects)[number];
   index: number;
-  reverse: boolean;
 }) {
   return (
     <motion.a
       href={project.href}
       target="_blank"
       rel="noreferrer"
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className={`group grid md:grid-cols-12 gap-8 items-center ${
-        reverse ? "md:[&>*:first-child]:order-2" : ""
-      }`}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative block border-b border-foreground/15 py-8 md:py-10 overflow-hidden"
     >
-      {/* Image */}
-      <div className="md:col-span-7 relative">
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-secondary aspect-[4/3]">
-          <motion.img
-            src={project.img}
-            alt={`${project.name} website preview`}
-            loading="lazy"
-            width={1280}
-            height={896}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-          />
-          {/* hover overlay */}
-          <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-colors duration-500" />
-          <div className="absolute bottom-5 right-5 flex items-center gap-2 rounded-full bg-background text-foreground px-4 py-2 text-sm font-medium opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-            Visit live site
-            <span aria-hidden>↗</span>
-          </div>
+      {/* Sweep fill on hover */}
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-foreground origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+      />
+
+      <div className="relative grid md:grid-cols-12 gap-4 md:gap-8 items-baseline transition-colors duration-500 group-hover:text-background">
+        <div className="md:col-span-1 font-mono text-xs text-muted-foreground group-hover:text-background/60">
+          0{index + 1}
         </div>
-        {/* Index badge */}
-        <div className="absolute -top-4 -left-3 md:-left-5 font-mono text-xs bg-foreground text-background rounded-full px-3 py-1.5">
-          0{index + 1} / 0{projects.length}
+
+        <div className="md:col-span-4">
+          <h3 className="font-display text-3xl md:text-5xl lg:text-6xl leading-[0.95]">
+            {project.name}
+          </h3>
+        </div>
+
+        <div className="md:col-span-3 text-xs uppercase tracking-[0.22em] text-muted-foreground group-hover:text-background/70 font-mono">
+          {project.tag}
+        </div>
+
+        <div className="md:col-span-3 text-sm text-muted-foreground group-hover:text-background/80 max-w-sm leading-relaxed">
+          {project.blurb}
+        </div>
+
+        <div className="md:col-span-1 flex md:justify-end items-center gap-2 font-mono text-xs">
+          <span className="hidden md:inline text-muted-foreground group-hover:text-background/60">
+            {project.year}
+          </span>
+          <span
+            aria-hidden
+            className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-foreground/30 group-hover:border-background group-hover:bg-background group-hover:text-foreground transition-all duration-500 group-hover:rotate-45"
+          >
+            ↗
+          </span>
         </div>
       </div>
 
-      {/* Text */}
-      <div className="md:col-span-5">
-        <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
-          {project.tag}
-        </div>
-        <h3 className="font-display text-4xl md:text-5xl leading-tight">{project.name}</h3>
-        <p className="mt-4 text-muted-foreground leading-relaxed max-w-md">{project.blurb}</p>
-        <div className="mt-6 inline-flex items-center gap-2 font-mono text-sm border-b border-foreground/30 pb-1 group-hover:border-foreground transition-colors">
-          {project.url}
-          <span aria-hidden className="transition-transform group-hover:translate-x-1">↗</span>
+      {/* Domain ticker on hover */}
+      <div className="relative mt-3 md:mt-2 ml-0 md:ml-[8.33%] overflow-hidden h-5">
+        <div className="font-mono text-xs text-muted-foreground group-hover:text-background/70 transition-colors">
+          → {project.domain}
         </div>
       </div>
     </motion.a>
