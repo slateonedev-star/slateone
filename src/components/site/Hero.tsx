@@ -83,21 +83,24 @@ export function Hero() {
           style={{ y: blobY, scale: blobScale, rotate: blobRotate, x: sx, translateY: sy }}
           className="relative w-[88vw] max-w-[640px] aspect-square pointer-events-none"
         >
+          {/* Soft glow halo */}
+          <div
+            aria-hidden
+            className="absolute inset-[8%] rounded-full bg-foreground/10 blur-3xl pointer-events-none"
+          />
           <motion.img
             src={slate}
             alt="Slate sculpture"
             width={1024}
             height={1024}
-            className="w-full h-full object-contain float-mid"
-            style={{ filter: "drop-shadow(0 50px 100px rgba(40,40,55,0.4))" }}
+            className="relative w-full h-full object-contain float-mid"
+            style={{ filter: "drop-shadow(0 60px 120px rgba(30,30,45,0.45)) drop-shadow(0 0 40px rgba(100,116,139,0.15))" }}
             animate={{ rotate: [0, 4, -3, 0] }}
             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            initial={{ opacity: 0, scale: 0.7 }}
-            whileInView={{ opacity: 1, scale: 1 }}
           />
           {/* Soft floor reflection */}
           <div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-8 rounded-[50%] blur-2xl bg-foreground/25 pointer-events-none"
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-2/3 h-10 rounded-[50%] blur-2xl bg-foreground/30 pointer-events-none"
             aria-hidden
           />
         </motion.div>
