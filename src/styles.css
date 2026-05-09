@@ -60,9 +60,9 @@
   --muted: oklch(0.94 0.006 90);
   --muted-foreground: oklch(0.45 0.012 70);
 
-  /* Lime electric accent */
-  --accent: oklch(0.86 0.21 125);
-  --accent-foreground: oklch(0.15 0.01 60);
+  /* Slate accent */
+  --accent: oklch(0.55 0.025 250);
+  --accent-foreground: oklch(0.98 0 0);
 
   --destructive: oklch(0.62 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
@@ -138,7 +138,7 @@
 
   /* Scribble underline svg helper */
   .scribble {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12'><path d='M2 8 C 50 2, 120 12, 198 4' stroke='%23a3e635' stroke-width='5' fill='none' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12'><path d='M2 8 C 50 2, 120 12, 198 4' stroke='%2364748b' stroke-width='5' fill='none' stroke-linecap='round'/></svg>");
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 100% 0.4em;

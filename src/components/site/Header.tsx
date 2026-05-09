@@ -34,7 +34,7 @@ export function Header() {
           <motion.span
             animate={{ scale: [1, 1.25, 1] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-block w-2.5 h-2.5 rounded-full bg-accent mb-1"
+            className="inline-block w-2.5 h-2.5 rounded-full bg-foreground mb-1"
           />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
