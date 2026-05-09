@@ -29,12 +29,13 @@ export function Header() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-1">
-          <span className="font-display text-3xl leading-none">chad</span>
+        <a href="#top" className="flex items-baseline gap-1 group">
+          <span className="font-display text-3xl leading-none">slate</span>
+          <span className="font-display italic text-xl leading-none text-muted-foreground group-hover:text-foreground transition-colors">/one</span>
           <motion.span
-            animate={{ scale: [1, 1.25, 1] }}
+            animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-block w-2.5 h-2.5 rounded-full bg-foreground mb-1"
+            className="inline-block w-1.5 h-1.5 rounded-full bg-foreground ml-1"
           />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">

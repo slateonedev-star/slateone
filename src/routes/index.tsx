@@ -13,13 +13,13 @@ import { Footer } from "@/components/site/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Chad — GTA Web Designer | Custom Sites from $599" },
+      { title: "slate/one — GTA Web Design Studio | Custom Sites from $599" },
       {
         name: "description",
         content:
-          "Custom, hand-coded websites for GTA businesses. Free preview before you pay. Sites from $599. Built in 48 hours.",
+          "slate/one is a Toronto/GTA web design studio. Hand-coded sites, free preview before you pay. Built in 48 hours from $599.",
       },
-      { property: "og:title", content: "Chad — GTA Web Designer" },
+      { property: "og:title", content: "slate/one — Web Design Studio" },
       {
         property: "og:description",
         content: "Free preview before you pay. Custom sites from $599. Built in 48 hours.",
