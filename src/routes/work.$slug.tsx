@@ -13,7 +13,7 @@ export const Route = createFileRoute("/work/$slug")({
 });
 
 function ShowcasePage() {
-  const { project: p } = Route.useLoaderData();
+  const { project: p } = Route.useLoaderData() as { project: Project };
 
   useEffect(() => {
     document.title = `${p.name} — by slate/one`;
