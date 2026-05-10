@@ -1,11 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { getProject, projects } from "@/lib/projects";
+import { getProject, projects, type Project } from "@/lib/projects";
 
 export const Route = createFileRoute("/work/$slug")({
   component: ShowcasePage,
-  loader: ({ params }) => {
+  loader: ({ params }): { project: Project } => {
     const project = getProject(params.slug);
     if (!project) throw notFound();
     return { project };
