@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 type Template = {
@@ -7,11 +7,11 @@ type Template = {
   tagline: string;
   description: string;
   vibe: string;
-  swatch: string[]; // hex colors
-  bg: string; // preview background
-  fg: string; // preview foreground
+  swatch: string[];
+  bg: string;
+  fg: string;
   accent: string;
-  font: string; // CSS font-family
+  font: string;
   best: string;
 };
 
@@ -89,8 +89,7 @@ const templates: Template[] = [
 ];
 
 export function Templates() {
-  const [active, setActive] = useState<string>(templates[0].code);
-  const current = templates.find((t) => t.code === active) ?? templates[0];
+  const [active, setActive] = useState<string | null>("01");
 
   return (
     <section
@@ -116,164 +115,19 @@ export function Templates() {
             </h2>
           </div>
           <div className="md:col-span-3 text-sm text-muted-foreground md:text-right">
-            Pick a starting point. We bend it around your brand in 48 hours.
+            Click a template to expand the live preview. We bend it around your brand in 48 hours.
           </div>
         </motion.div>
 
-        {/* Live preview pane */}
-        <motion.div
-          key={current.code}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-3xl border border-foreground/10 overflow-hidden mb-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.25)]"
-          style={{ background: current.bg, color: current.fg }}
-        >
-          {/* Animated accent orb */}
-          <motion.div
-            aria-hidden
-            className="absolute -top-20 -right-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-40 pointer-events-none"
-            style={{ background: current.accent }}
-            animate={{ scale: [1, 1.15, 1], rotate: [0, 30, 0] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden
-            className="absolute -bottom-32 -left-16 w-[360px] h-[360px] rounded-full blur-3xl opacity-30 pointer-events-none"
-            style={{ background: current.swatch[2] }}
-            animate={{ scale: [1.1, 1, 1.1], x: [0, 30, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          <div className="relative grid md:grid-cols-12 gap-8 p-8 md:p-14 min-h-[440px]">
-            <div className="md:col-span-7 flex flex-col justify-between">
-              <div>
-                <div
-                  className="text-[10px] uppercase tracking-[0.32em] font-mono opacity-60"
-                  style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                >
-                  / template · {current.code}
-                </div>
-                <motion.h3
-                  key={current.name}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="mt-4 text-5xl md:text-7xl leading-[0.92]"
-                  style={{ fontFamily: current.font, letterSpacing: "-0.02em" }}
-                >
-                  {current.name}
-                </motion.h3>
-                <p
-                  className="mt-4 text-sm md:text-base opacity-70 max-w-md"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {current.tagline}
-                </p>
-                <p
-                  className="mt-6 text-base md:text-lg leading-relaxed max-w-lg"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {current.description}
-                </p>
-              </div>
-
-              <div
-                className="mt-8 flex flex-wrap items-center gap-4 text-[10px] uppercase tracking-[0.28em] opacity-70"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                <span>{current.vibe}</span>
-                <span className="opacity-40">·</span>
-                <span>Best for: {current.best}</span>
-              </div>
-            </div>
-
-            {/* Right: animated swatch + mini mock */}
-            <div className="md:col-span-5 relative flex flex-col gap-4">
-              <div className="grid grid-cols-4 gap-2">
-                {current.swatch.map((c, i) => (
-                  <motion.div
-                    key={c + i}
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.1 + i * 0.07, duration: 0.5 }}
-                    className="aspect-square rounded-xl border border-black/10"
-                    style={{ background: c }}
-                  />
-                ))}
-              </div>
-
-              {/* Mini mock window */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, duration: 0.6 }}
-                className="relative rounded-2xl border border-black/10 overflow-hidden flex-1 min-h-[200px]"
-                style={{ background: current.swatch[0] }}
-              >
-                <div className="flex items-center gap-1.5 px-3 py-2 border-b border-black/10">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ background: current.swatch[3] }}
-                  />
-                  <span
-                    className="w-2 h-2 rounded-full opacity-60"
-                    style={{ background: current.swatch[2] }}
-                  />
-                  <span
-                    className="w-2 h-2 rounded-full opacity-30"
-                    style={{ background: current.swatch[2] }}
-                  />
-                </div>
-                <div className="p-4">
-                  <div
-                    className="text-2xl leading-tight"
-                    style={{ fontFamily: current.font, color: current.fg }}
-                  >
-                    Your brand,
-                    <br />
-                    <em>elevated.</em>
-                  </div>
-                  <motion.div
-                    className="mt-4 h-1.5 rounded-full"
-                    style={{ background: current.accent }}
-                    animate={{ width: ["20%", "85%", "20%"] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  <div className="mt-3 grid grid-cols-3 gap-2">
-                    {[0, 1, 2].map((i) => (
-                      <motion.div
-                        key={i}
-                        className="h-12 rounded-md border border-black/10"
-                        style={{ background: current.swatch[1] }}
-                        animate={{ opacity: [0.6, 1, 0.6] }}
-                        transition={{
-                          duration: 2.2,
-                          repeat: Infinity,
-                          delay: i * 0.3,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Selector rows */}
-        <div className="border-t border-foreground/15 mt-8">
+        {/* Stack of templates — each expands inline */}
+        <div className="border-t border-foreground/15">
           {templates.map((t, i) => (
-            <TemplateRow
+            <TemplateItem
               key={t.code}
               t={t}
               index={i}
               active={active === t.code}
-              onSelect={() => setActive(t.code)}
+              onToggle={() => setActive(active === t.code ? null : t.code)}
             />
           ))}
         </div>
@@ -282,83 +136,226 @@ export function Templates() {
   );
 }
 
-function TemplateRow({
+function TemplateItem({
   t,
   index,
   active,
-  onSelect,
+  onToggle,
 }: {
   t: Template;
   index: number;
   active: boolean;
-  onSelect: () => void;
+  onToggle: () => void;
 }) {
   return (
-    <motion.button
-      type="button"
-      onClick={onSelect}
-      onMouseEnter={onSelect}
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="group relative w-full text-left border-b border-foreground/15 py-6 md:py-8 grid grid-cols-12 gap-4 items-center transition-colors hover:bg-foreground/[0.03]"
+      className="border-b border-foreground/15"
     >
-      {/* index */}
-      <div className="col-span-2 md:col-span-1 text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-mono">
-        / {t.code}
-      </div>
+      {/* Selector row */}
+      <button
+        type="button"
+        onClick={onToggle}
+        className="group relative w-full text-left py-6 md:py-8 grid grid-cols-12 gap-4 items-center transition-colors hover:bg-foreground/[0.03]"
+      >
+        <div className="col-span-2 md:col-span-1 text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-mono">
+          / {t.code}
+        </div>
 
-      {/* name */}
-      <div className="col-span-10 md:col-span-3 flex items-center gap-3">
-        <motion.span
-          animate={{ scale: active ? 1.4 : 1 }}
-          className="w-1.5 h-1.5 rounded-full bg-foreground"
-        />
-        <span
-          className="font-display text-2xl md:text-4xl tracking-tight"
-          style={{ letterSpacing: "-0.01em" }}
-        >
-          {t.name}
-        </span>
-      </div>
-
-      {/* tagline */}
-      <div className="hidden md:block col-span-5 text-sm md:text-base text-muted-foreground">
-        {t.tagline}
-      </div>
-
-      {/* swatch */}
-      <div className="col-span-12 md:col-span-2 flex items-center justify-end gap-1">
-        {t.swatch.map((c, i) => (
+        <div className="col-span-10 md:col-span-3 flex items-center gap-3">
           <motion.span
-            key={c + i}
-            className="w-5 h-5 rounded-full border border-foreground/15"
-            style={{ background: c }}
-            animate={
-              active
-                ? { y: [0, -4, 0] }
-                : { y: 0 }
-            }
-            transition={{
-              duration: 1.4,
-              repeat: active ? Infinity : 0,
-              delay: i * 0.08,
-              ease: "easeInOut",
-            }}
+            animate={{ scale: active ? 1.6 : 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="w-1.5 h-1.5 rounded-full bg-foreground"
           />
-        ))}
-      </div>
+          <span
+            className="font-display text-2xl md:text-4xl tracking-tight"
+            style={{ letterSpacing: "-0.01em" }}
+          >
+            {t.name}
+          </span>
+        </div>
 
-      {/* arrow */}
-      <div className="hidden md:flex col-span-1 justify-end text-2xl">
-        <motion.span
-          animate={{ x: active ? 6 : 0 }}
-          className="text-foreground"
-        >
-          →
-        </motion.span>
-      </div>
-    </motion.button>
+        <div className="hidden md:block col-span-5 text-sm md:text-base text-muted-foreground">
+          {t.tagline}
+        </div>
+
+        <div className="col-span-12 md:col-span-2 flex items-center justify-end gap-1">
+          {t.swatch.map((c, i) => (
+            <motion.span
+              key={c + i}
+              className="w-5 h-5 rounded-full border border-foreground/15"
+              style={{ background: c }}
+              animate={active ? { y: [0, -4, 0] } : { y: 0 }}
+              transition={{
+                duration: 1.4,
+                repeat: active ? Infinity : 0,
+                delay: i * 0.08,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="hidden md:flex col-span-1 justify-end text-2xl">
+          <motion.span
+            animate={{ rotate: active ? 45 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="text-foreground inline-block"
+          >
+            +
+          </motion.span>
+        </div>
+      </button>
+
+      {/* Pop-out preview, anchored under this row */}
+      <AnimatePresence initial={false}>
+        {active && (
+          <motion.div
+            key="preview"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              initial={{ y: -30, scale: 0.97 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: -20, scale: 0.97 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="relative my-6 rounded-3xl overflow-hidden border border-foreground/10 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.35)]"
+              style={{ background: t.bg, color: t.fg }}
+            >
+              {/* Animated accent orbs */}
+              <motion.div
+                aria-hidden
+                className="absolute -top-24 -right-24 w-[460px] h-[460px] rounded-full blur-3xl opacity-40 pointer-events-none"
+                style={{ background: t.accent }}
+                animate={{ scale: [1, 1.15, 1], rotate: [0, 30, 0] }}
+                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                aria-hidden
+                className="absolute -bottom-32 -left-20 w-[380px] h-[380px] rounded-full blur-3xl opacity-30 pointer-events-none"
+                style={{ background: t.swatch[2] }}
+                animate={{ scale: [1.1, 1, 1.1], x: [0, 30, 0] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              <div className="relative grid md:grid-cols-12 gap-8 p-8 md:p-14">
+                {/* Left: text */}
+                <div className="md:col-span-7 flex flex-col justify-between min-h-[360px]">
+                  <div>
+                    <div
+                      className="text-[10px] uppercase tracking-[0.32em] opacity-60"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      / template · {t.code}
+                    </div>
+                    <motion.h3
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="mt-4 text-5xl md:text-7xl leading-[0.92]"
+                      style={{ fontFamily: t.font, letterSpacing: "-0.02em" }}
+                    >
+                      {t.name}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.7 }}
+                      transition={{ delay: 0.2 }}
+                      className="mt-4 text-sm md:text-base max-w-md"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      {t.tagline}
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="mt-6 text-base md:text-lg leading-relaxed max-w-lg"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      {t.description}
+                    </motion.p>
+                  </div>
+
+                  <div
+                    className="mt-8 flex flex-wrap items-center gap-4 text-[10px] uppercase tracking-[0.28em] opacity-70"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    <span>{t.vibe}</span>
+                    <span className="opacity-40">·</span>
+                    <span>Best for: {t.best}</span>
+                  </div>
+                </div>
+
+                {/* Right: swatch + mock */}
+                <div className="md:col-span-5 relative flex flex-col gap-4">
+                  <div className="grid grid-cols-4 gap-2">
+                    {t.swatch.map((c, i) => (
+                      <motion.div
+                        key={c + i}
+                        initial={{ y: 30, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.15 + i * 0.07, duration: 0.5 }}
+                        className="aspect-square rounded-xl border border-black/10"
+                        style={{ background: c }}
+                      />
+                    ))}
+                  </div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.6 }}
+                    className="relative rounded-2xl border border-black/10 overflow-hidden flex-1 min-h-[220px]"
+                    style={{ background: t.swatch[0] }}
+                  >
+                    <div className="flex items-center gap-1.5 px-3 py-2 border-b border-black/10">
+                      <span className="w-2 h-2 rounded-full" style={{ background: t.swatch[3] }} />
+                      <span className="w-2 h-2 rounded-full opacity-60" style={{ background: t.swatch[2] }} />
+                      <span className="w-2 h-2 rounded-full opacity-30" style={{ background: t.swatch[2] }} />
+                    </div>
+                    <div className="p-4">
+                      <div
+                        className="text-2xl leading-tight"
+                        style={{ fontFamily: t.font, color: t.fg }}
+                      >
+                        Your brand,
+                        <br />
+                        <em>elevated.</em>
+                      </div>
+                      <motion.div
+                        className="mt-4 h-1.5 rounded-full"
+                        style={{ background: t.accent }}
+                        animate={{ width: ["20%", "85%", "20%"] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <div className="mt-3 grid grid-cols-3 gap-2">
+                        {[0, 1, 2].map((i) => (
+                          <motion.div
+                            key={i}
+                            className="h-12 rounded-md border border-black/10"
+                            style={{ background: t.swatch[1] }}
+                            animate={{ opacity: [0.6, 1, 0.6] }}
+                            transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.3 }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
