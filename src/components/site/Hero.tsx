@@ -1,6 +1,8 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect } from "react";
 import slate from "@/assets/slate-blob.png";
+import { HeroFilm } from "./HeroFilm";
+import { Magnetic } from "./Magnetic";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -31,7 +33,10 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[100svh] pt-24 pb-16 lg:pt-28 overflow-hidden flex flex-col"
     >
-      <div className="absolute inset-0 bg-grid mask-fade-y opacity-50 pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none">
+        <HeroFilm />
+      </div>
+      <div className="absolute inset-0 bg-grid mask-fade-y opacity-40 pointer-events-none" />
 
       {/* Top bar */}
       <motion.div
@@ -166,14 +171,18 @@ export function Hero() {
         </div>
 
         <div className="md:text-right flex flex-col md:items-end gap-3">
-          <a
-            href="#contact"
-            className="shine group inline-flex items-center gap-3 rounded-full bg-foreground text-background px-6 py-3.5 text-sm font-semibold hover:bg-foreground/90 transition self-start md:self-end"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-background animate-pulse" />
-            Get free preview
-            <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>→</motion.span>
-          </a>
+          <Magnetic strength={0.3} className="self-start md:self-end">
+            <a
+              href="/quote"
+              data-cursor="link"
+              data-cursor-label="build →"
+              className="shine group inline-flex items-center gap-3 rounded-full bg-foreground text-background px-6 py-3.5 text-sm font-semibold hover:bg-foreground/90 transition"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-background animate-pulse" />
+              Build a quote
+              <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>→</motion.span>
+            </a>
+          </Magnetic>
           <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.22em]">
             No deposit · No contracts
           </div>

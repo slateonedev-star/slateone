@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { getProject, projects, type Project } from "@/lib/projects";
+import { StatCounter } from "@/components/site/StatCounter";
+import { Magnetic } from "@/components/site/Magnetic";
 
 export const Route = createFileRoute("/work/$slug")({
   component: ShowcasePage,
@@ -121,18 +123,22 @@ function ShowcasePage() {
             transition={{ duration: 0.7, delay: 0.8 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <a
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-transform hover:-translate-y-0.5"
-              style={{ backgroundColor: p.palette.accent, color: p.palette.bg }}
-            >
-              {p.hero.cta}
-              <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
-                →
-              </motion.span>
-            </a>
+            <Magnetic strength={0.3}>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="link"
+                data-cursor-label="visit ↗"
+                className="group inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-transform"
+                style={{ backgroundColor: p.palette.accent, color: p.palette.bg }}
+              >
+                {p.hero.cta}
+                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
+                  →
+                </motion.span>
+              </a>
+            </Magnetic>
             <a
               href={`https://${p.domain}`}
               target="_blank"
@@ -159,7 +165,7 @@ function ShowcasePage() {
               className="text-center md:text-left"
             >
               <div className="text-4xl md:text-6xl" style={{ fontFamily: p.display, color: p.palette.accent }}>
-                {s.value}
+                <StatCounter value={s.value} />
               </div>
               <div className="mt-2 text-[10px] uppercase tracking-[0.3em] font-mono" style={{ color: p.palette.muted }}>
                 {s.label}
@@ -211,6 +217,73 @@ function ShowcasePage() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Brief / Build / Result narrative */}
+      <section className="py-20 md:py-28 border-t" style={{ borderColor: `${p.palette.muted}22` }}>
+        <div className="mx-auto max-w-7xl px-5 lg:px-10">
+          <div className="grid md:grid-cols-12 gap-6 mb-14 items-end">
+            <div className="md:col-span-2 text-[10px] uppercase tracking-[0.3em] font-mono" style={{ color: p.palette.muted }}>
+              ◆ The story
+            </div>
+            <h2 className="md:col-span-10 text-4xl md:text-6xl leading-[0.95]" style={{ fontFamily: p.display }}>
+              How we shipped <em style={{ color: p.palette.accent }}>{p.name}.</em>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-12 gap-10 items-start">
+            {/* Narrative */}
+            <div className="md:col-span-6 space-y-10">
+              {[
+                {
+                  k: "Brief",
+                  t: `${p.industry} in ${p.city} needed a site that earned trust on first scroll.`,
+                  d: p.blurb,
+                },
+                {
+                  k: "Build",
+                  t: `Hand-coded in ${p.display.includes("Serif") ? "an editorial type system" : "a clean modern stack"}, designed around ${p.palette.accent}.`,
+                  d: `Custom layout, animated hero, mobile-first. Shipped in 7 days from kickoff to live URL on ${p.domain}.`,
+                },
+                {
+                  k: "Result",
+                  t: `${p.stats[0].value} ${p.stats[0].label.toLowerCase()} · ${p.stats[2]?.value ?? p.stats[1].value} ${(p.stats[2]?.label ?? p.stats[1].label).toLowerCase()}.`,
+                  d: `${p.testimonial.quote.slice(0, 120)}${p.testimonial.quote.length > 120 ? "…" : ""}`,
+                },
+              ].map((row, i) => (
+                <motion.div
+                  key={row.k}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                  className="border-t pt-6"
+                  style={{ borderColor: `${p.palette.muted}33` }}
+                >
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] uppercase tracking-[0.32em] font-mono" style={{ color: p.palette.muted }}>
+                      / 0{i + 1}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl" style={{ fontFamily: p.display, color: p.palette.accent }}>
+                      {row.k}
+                    </h3>
+                  </div>
+                  <p className="mt-3 text-lg md:text-xl leading-snug" style={{ fontFamily: p.display }}>
+                    {row.t}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed max-w-md" style={{ color: p.palette.muted }}>
+                    {row.d}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Device mockup */}
+            <div className="md:col-span-6 md:sticky md:top-24">
+              <DeviceMock p={p} />
+            </div>
           </div>
         </div>
       </section>
@@ -332,5 +405,110 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
         {children}
       </motion.span>
     </span>
+  );
+}
+
+function DeviceMock({ p }: { p: Project }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, rotateX: 8 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      style={{ perspective: 1200 }}
+      className="relative"
+    >
+      {/* Desktop frame */}
+      <div
+        className="relative rounded-2xl overflow-hidden border shadow-[0_50px_120px_-40px_rgba(0,0,0,0.45)]"
+        style={{ borderColor: `${p.palette.muted}33`, background: p.palette.surface }}
+      >
+        {/* Browser chrome */}
+        <div className="flex items-center gap-1.5 px-4 py-3 border-b" style={{ borderColor: `${p.palette.muted}22` }}>
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: p.palette.accent }} />
+          <span className="w-2.5 h-2.5 rounded-full opacity-50" style={{ background: p.palette.accent2 }} />
+          <span className="w-2.5 h-2.5 rounded-full opacity-30" style={{ background: p.palette.muted }} />
+          <span
+            className="ml-3 text-[10px] font-mono opacity-60 truncate"
+            style={{ color: p.palette.muted }}
+          >
+            ↗ {p.domain}
+          </span>
+        </div>
+        {/* Page mock */}
+        <div className="aspect-[16/10] p-6 md:p-8 relative" style={{ background: p.palette.bg }}>
+          <motion.div
+            aria-hidden
+            className="absolute -top-10 -right-10 w-64 h-64 rounded-full blur-3xl opacity-50"
+            style={{ background: p.palette.accent }}
+            animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="relative">
+            <div className="text-[9px] uppercase tracking-[0.3em] font-mono mb-2" style={{ color: p.palette.muted }}>
+              {p.hero.eyebrow}
+            </div>
+            <div
+              className="text-2xl md:text-4xl leading-[0.95]"
+              style={{ fontFamily: p.display, color: p.palette.fg }}
+            >
+              {p.hero.title}{" "}
+              <em style={{ color: p.palette.accent }}>{p.hero.italic}</em>
+            </div>
+            <motion.div
+              className="mt-4 h-1.5 rounded-full"
+              style={{ background: p.palette.accent }}
+              animate={{ width: ["12%", "70%", "12%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="h-12 md:h-16 rounded-md"
+                  style={{ background: p.palette.surface }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.3 }}
+                />
+              ))}
+            </div>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.22em]"
+              style={{ background: p.palette.accent, color: p.palette.bg }}>
+              {p.hero.cta} →
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating phone */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="absolute -bottom-10 -left-4 md:-left-10 w-36 md:w-44 rounded-[28px] overflow-hidden border-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]"
+        style={{ borderColor: p.palette.fg, background: p.palette.bg }}
+      >
+        <div className="aspect-[9/19] p-3 relative" style={{ background: p.palette.bg }}>
+          <div className="text-[7px] uppercase tracking-[0.3em] font-mono opacity-60" style={{ color: p.palette.muted }}>
+            {p.domain}
+          </div>
+          <div
+            className="mt-2 text-base leading-[0.95]"
+            style={{ fontFamily: p.display, color: p.palette.fg }}
+          >
+            {p.hero.title}
+            <br />
+            <em style={{ color: p.palette.accent }}>{p.hero.italic}</em>
+          </div>
+          <div className="mt-2 h-1 rounded-full" style={{ background: p.palette.accent, width: "60%" }} />
+          <div className="mt-2 grid grid-cols-2 gap-1">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="h-6 rounded" style={{ background: p.palette.surface }} />
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
