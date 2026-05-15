@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const links = [
   { href: "#work", label: "Work" },
   { href: "#services", label: "Services" },
+  { href: "/quote", label: "Quote" },
   { href: "#process", label: "Process" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -51,10 +52,11 @@ export function Header() {
           ))}
         </nav>
         <a
-          href="#contact"
+          href="/quote"
+          data-cursor="link"
           className="shine group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-semibold hover:bg-foreground/90 transition"
         >
-          Free preview
+          Build a quote
           <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
         </a>
       </div>
