@@ -123,18 +123,22 @@ function ShowcasePage() {
             transition={{ duration: 0.7, delay: 0.8 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <a
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-transform hover:-translate-y-0.5"
-              style={{ backgroundColor: p.palette.accent, color: p.palette.bg }}
-            >
-              {p.hero.cta}
-              <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
-                →
-              </motion.span>
-            </a>
+            <Magnetic strength={0.3}>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="link"
+                data-cursor-label="visit ↗"
+                className="group inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-transform"
+                style={{ backgroundColor: p.palette.accent, color: p.palette.bg }}
+              >
+                {p.hero.cta}
+                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
+                  →
+                </motion.span>
+              </a>
+            </Magnetic>
             <a
               href={`https://${p.domain}`}
               target="_blank"
