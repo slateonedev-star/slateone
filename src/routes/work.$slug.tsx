@@ -217,6 +217,73 @@ function ShowcasePage() {
         </div>
       </section>
 
+      {/* Brief / Build / Result narrative */}
+      <section className="py-20 md:py-28 border-t" style={{ borderColor: `${p.palette.muted}22` }}>
+        <div className="mx-auto max-w-7xl px-5 lg:px-10">
+          <div className="grid md:grid-cols-12 gap-6 mb-14 items-end">
+            <div className="md:col-span-2 text-[10px] uppercase tracking-[0.3em] font-mono" style={{ color: p.palette.muted }}>
+              ◆ The story
+            </div>
+            <h2 className="md:col-span-10 text-4xl md:text-6xl leading-[0.95]" style={{ fontFamily: p.display }}>
+              How we shipped <em style={{ color: p.palette.accent }}>{p.name}.</em>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-12 gap-10 items-start">
+            {/* Narrative */}
+            <div className="md:col-span-6 space-y-10">
+              {[
+                {
+                  k: "Brief",
+                  t: `${p.industry} in ${p.city} needed a site that earned trust on first scroll.`,
+                  d: p.blurb,
+                },
+                {
+                  k: "Build",
+                  t: `Hand-coded in ${p.display.includes("Serif") ? "an editorial type system" : "a clean modern stack"}, designed around ${p.palette.accent}.`,
+                  d: `Custom layout, animated hero, mobile-first. Shipped in 7 days from kickoff to live URL on ${p.domain}.`,
+                },
+                {
+                  k: "Result",
+                  t: `${p.stats[0].value} ${p.stats[0].label.toLowerCase()} · ${p.stats[2]?.value ?? p.stats[1].value} ${(p.stats[2]?.label ?? p.stats[1].label).toLowerCase()}.`,
+                  d: `${p.testimonial.quote.slice(0, 120)}${p.testimonial.quote.length > 120 ? "…" : ""}`,
+                },
+              ].map((row, i) => (
+                <motion.div
+                  key={row.k}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                  className="border-t pt-6"
+                  style={{ borderColor: `${p.palette.muted}33` }}
+                >
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] uppercase tracking-[0.32em] font-mono" style={{ color: p.palette.muted }}>
+                      / 0{i + 1}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl" style={{ fontFamily: p.display, color: p.palette.accent }}>
+                      {row.k}
+                    </h3>
+                  </div>
+                  <p className="mt-3 text-lg md:text-xl leading-snug" style={{ fontFamily: p.display }}>
+                    {row.t}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed max-w-md" style={{ color: p.palette.muted }}>
+                    {row.d}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Device mockup */}
+            <div className="md:col-span-6 md:sticky md:top-24">
+              <DeviceMock p={p} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery */}
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-10">
