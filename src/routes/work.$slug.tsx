@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { getProject, projects, type Project } from "@/lib/projects";
+import { StatCounter } from "@/components/site/StatCounter";
+import { Magnetic } from "@/components/site/Magnetic";
 
 export const Route = createFileRoute("/work/$slug")({
   component: ShowcasePage,
@@ -159,7 +161,7 @@ function ShowcasePage() {
               className="text-center md:text-left"
             >
               <div className="text-4xl md:text-6xl" style={{ fontFamily: p.display, color: p.palette.accent }}>
-                {s.value}
+                <StatCounter value={s.value} />
               </div>
               <div className="mt-2 text-[10px] uppercase tracking-[0.3em] font-mono" style={{ color: p.palette.muted }}>
                 {s.label}
