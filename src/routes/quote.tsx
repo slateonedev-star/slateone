@@ -51,7 +51,7 @@ function QuotePage() {
   const [submitted, setSubmitted] = useState(false);
 
   const total = useMemo(() => {
-    const pageCost = Math.max(0, pages - 1) * 110;
+    const pageCost = Math.max(0, pages - 1) * 50;
     const addonCost = ADD_ONS.filter((a) => addons.has(a.id)).reduce((s, a) => s + a.price, 0);
     return Math.round((site.base + pageCost + addonCost) * speed.mult);
   }, [site, pages, addons, speed]);
@@ -147,7 +147,7 @@ function QuotePage() {
                     />
                     <div className="mt-2 flex justify-between text-[10px] uppercase tracking-[0.22em] font-mono text-muted-foreground">
                       <span>1 · landing</span>
-                      <span>+$110 / extra page</span>
+                      <span>+$50 / extra page</span>
                       <span>20 · large</span>
                     </div>
                   </div>
@@ -239,7 +239,7 @@ function QuotePage() {
 
                   <ul className="mt-6 space-y-2 text-sm text-background/85">
                     <Li label={site.label} value={`$${site.base}`} />
-                    <Li label={`${pages} page${pages > 1 ? "s" : ""}`} value={`+$${Math.max(0, pages - 1) * 110}`} />
+                    <Li label={`${pages} page${pages > 1 ? "s" : ""}`} value={`+$${Math.max(0, pages - 1) * 50}`} />
                     {ADD_ONS.filter((a) => addons.has(a.id)).map((a) => (
                       <Li key={a.id} label={a.label} value={`+$${a.price}`} />
                     ))}
