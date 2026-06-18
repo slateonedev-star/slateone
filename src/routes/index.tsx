@@ -31,7 +31,7 @@ function Index() {
         <SlateOrb size={240} label="· hand · coded · in · 48h ·" caption="◆ chapter ii — the kit" />
         <Templates />
         <Services />
-        <SlateOrb size={200} label="· built · to · convert ·" caption="◆ chapter iii — the process" invert />
+        <SlateOrb size={200} label="· built · to · convert ·" caption="◆ chapter iii — the process" />
         <Process />
         <Testimonials />
         <FAQ />
