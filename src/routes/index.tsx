@@ -11,6 +11,7 @@ import { Testimonials } from "@/components/site/Testimonials";
 import { FAQ } from "@/components/site/FAQ";
 import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
+import { SlateOrb } from "@/components/site/SlateOrb";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -27,11 +28,14 @@ function Index() {
         <Hero />
         <Marquee />
         <Work />
+        <SlateOrb size={240} label="· hand · coded · in · 48h ·" caption="◆ chapter ii — the kit" />
         <Templates />
         <Services />
+        <SlateOrb size={200} label="· built · to · convert ·" caption="◆ chapter iii — the process" invert />
         <Process />
         <Testimonials />
         <FAQ />
+        <SlateOrb size={300} label="· your · turn · your · turn ·" caption="◆ final — let's build" />
         <CTA />
       </main>
       <Footer />
