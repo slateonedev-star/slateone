@@ -28,14 +28,14 @@ function Index() {
         <Hero />
         <Marquee />
         <Work />
-        <SlateOrb size={240} label="· hand · coded · in · 48h ·" caption="◆ chapter ii — the kit" />
+        <SlateOrb size={240} label="· hand · coded · in · 48h ·" caption="◆ chapter ii — the kit" variant="prism" />
         <Templates />
         <Services />
-        <SlateOrb size={200} label="· built · to · convert ·" caption="◆ chapter iii — the process" />
+        <SlateOrb size={200} label="· built · to · convert ·" caption="◆ chapter iii — the process" variant="core" />
         <Process />
         <Testimonials />
         <FAQ />
-        <SlateOrb size={300} label="· your · turn · your · turn ·" caption="◆ final — let's build" />
+        <SlateOrb size={300} label="· your · turn · your · turn ·" caption="◆ final — let's build" variant="pulse" />
         <CTA />
       </main>
       <Footer />
