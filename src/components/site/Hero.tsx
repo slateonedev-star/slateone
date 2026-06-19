@@ -48,13 +48,10 @@ export function Hero() {
         <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-mono">
           ◆ Studio · Toronto / GTA
         </div>
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 backdrop-blur px-4 py-1.5 text-[10px] uppercase tracking-[0.24em] text-muted-foreground font-mono">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-foreground opacity-60 animate-ping" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground" />
-          </span>
-          2 spots open · May
+        <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-mono">
+          ◆ Studio · Toronto / GTA
         </div>
+        <div />
       </motion.div>
 
       {/* Center stage */}
