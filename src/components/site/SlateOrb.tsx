@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import slate from "@/assets/slate-blob.png";
 
 type Variant = "core" | "prism" | "pulse";
 
