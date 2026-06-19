@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import slate from "@/assets/slate-blob.png";
 
 type Variant = "core" | "prism" | "pulse";
 
@@ -13,12 +12,10 @@ type Props = {
   variant?: Variant;
 };
 
-/**
- * Decorative slate sculpture — three distinct moods:
- *  · core   — clean orbital ring (default)
- *  · prism  — layered refraction, dual counter-orbit rings
- *  · pulse  — expanding wave rings, heartbeat glow (finale)
- */
+/* ──────────────────────────────────────────────────────────────
+   Three distinct sculptures — each with unique form, rings & feel
+   ────────────────────────────────────────────────────────────── */
+
 export function SlateOrb({
   size = 280,
   label = "· slate · one ·",
@@ -42,95 +39,229 @@ export function SlateOrb({
   return (
     <div ref={ref} className={`relative flex ${justify} py-10 md:py-16`}>
       <motion.div style={{ y, rotate: r, scale: s }} className="relative pointer-events-none">
-        {/* ─── PRISM variant — dual counter-rotating dashed rings ─── */}
+        {/* ═══════════════════════════════════════════════════════
+            PRISM  —  crystalline polyhedron, sharp & engineered
+            ═══════════════════════════════════════════════════════ */}
         {variant === "prism" && (
           <>
+            {/* outer dashed hex-boundary */}
             <motion.div
               animate={{ rotate: -360 }}
-              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 flex items-center justify-center"
               aria-hidden
             >
               <div
-                className="rounded-full border border-dashed border-foreground/20 flex items-center justify-center"
-                style={{ width: size * 1.45, height: size * 1.45 }}
+                className="flex items-center justify-center"
+                style={{
+                  width: size * 1.5,
+                  height: size * 1.5,
+                  clipPath:
+                    "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                  border: "1px dashed rgba(148,163,184,0.22)",
+                }}
               />
             </motion.div>
+
+            {/* inner square ring */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 flex items-center justify-center"
               aria-hidden
             >
               <div
-                className="rounded-full border border-foreground/10 flex items-center justify-center"
-                style={{ width: size * 1.2, height: size * 1.2 }}
+                className="border border-foreground/12 flex items-center justify-center"
+                style={{ width: size * 1.15, height: size * 1.15 }}
               >
-                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono -translate-y-[calc(50%+0.5rem)] absolute top-0">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono absolute -top-5">
                   {label}
                 </span>
               </div>
             </motion.div>
-            {/* prismatic offset ghosts */}
-            <img
-              src={slate}
-              alt=""
+
+            {/* crystalline ghost shards */}
+            <motion.div
+              animate={{ rotate: [0, 90, 0] }}
+              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0 flex items-center justify-center"
               aria-hidden
-              width={1024}
-              height={1024}
-              className="absolute object-contain opacity-20"
-              style={{
-                width: size * 0.95,
-                height: size * 0.95,
-                top: -size * 0.06,
-                left: size * 0.08,
-                filter: "blur(1px)",
-              }}
-            />
-            <img
-              src={slate}
-              alt=""
+            >
+              <div
+                className="absolute opacity-20 bg-gradient-to-br from-slate-400/30 to-transparent"
+                style={{
+                  width: size * 0.85,
+                  height: size * 0.85,
+                  clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+                }}
+              />
+            </motion.div>
+            <motion.div
+              animate={{ rotate: [45, -45, 45] }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0 flex items-center justify-center"
               aria-hidden
-              width={1024}
-              height={1024}
-              className="absolute object-contain opacity-10"
-              style={{
-                width: size * 0.9,
-                height: size * 0.9,
-                top: size * 0.04,
-                left: -size * 0.06,
-                filter: "blur(2px)",
-              }}
+            >
+              <div
+                className="absolute opacity-15 bg-gradient-to-tr from-slate-500/20 to-transparent"
+                style={{
+                  width: size * 0.7,
+                  height: size * 0.7,
+                  clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+                }}
+              />
+            </motion.div>
+
+            {/* halo */}
+            <div
+              aria-hidden
+              className="absolute inset-[12%] rounded-full bg-foreground/8 blur-3xl"
             />
+
+            {/* sculpture — faceted diamond */}
+            <motion.div
+              className="relative flex items-center justify-center"
+              style={{ width: size, height: size }}
+              animate={{ rotate: [0, 6, -4, 0] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div
+                className="absolute bg-gradient-to-b from-slate-300/80 via-slate-500/60 to-slate-700/80"
+                style={{
+                  width: size * 0.75,
+                  height: size * 0.75,
+                  clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
+                  boxShadow:
+                    "0 30px 60px rgba(30,30,45,0.4), inset 0 -20px 40px rgba(0,0,0,0.3), inset 0 20px 40px rgba(255,255,255,0.15)",
+                }}
+              />
+              {/* top facet highlight */}
+              <div
+                className="absolute bg-gradient-to-b from-white/30 to-transparent"
+                style={{
+                  width: size * 0.35,
+                  height: size * 0.28,
+                  clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
+                  top: size * 0.13,
+                }}
+              />
+            </motion.div>
           </>
         )}
 
-        {/* ─── PULSE variant — expanding wave rings ─── */}
+        {/* ═══════════════════════════════════════════════════════
+            CORE  —  smooth torus / ring, elegant & continuous
+            ═══════════════════════════════════════════════════════ */}
+        {variant === "core" && (
+          <>
+            {/* single slow orbit ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 flex items-center justify-center"
+              aria-hidden
+            >
+              <div
+                className="rounded-full border border-foreground/12 flex items-center justify-center"
+                style={{ width: size * 1.4, height: size * 1.4 }}
+              >
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono absolute -top-5">
+                  {label}
+                </span>
+              </div>
+            </motion.div>
+
+            {/* second counter-ring (thinner) */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 flex items-center justify-center"
+              aria-hidden
+            >
+              <div
+                className="rounded-full border border-dashed border-foreground/8"
+                style={{ width: size * 1.2, height: size * 1.2 }}
+              />
+            </motion.div>
+
+            {/* soft halo */}
+            <div
+              aria-hidden
+              className="absolute inset-[10%] rounded-full bg-foreground/8 blur-3xl"
+            />
+
+            {/* sculpture — smooth torus ring */}
+            <motion.div
+              className="relative flex items-center justify-center"
+              style={{ width: size, height: size }}
+              animate={{ rotate: [0, -5, 3, 0] }}
+              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {/* outer ring */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  width: size * 0.8,
+                  height: size * 0.8,
+                  background:
+                    "conic-gradient(from 0deg, #94a3b8, #475569, #1e293b, #64748b, #94a3b8)",
+                  boxShadow:
+                    "0 40px 80px rgba(30,30,45,0.45), inset 0 0 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(148,163,184,0.2)",
+                }}
+              />
+              {/* inner cutout */}
+              <div
+                className="absolute rounded-full bg-background"
+                style={{
+                  width: size * 0.45,
+                  height: size * 0.45,
+                  boxShadow: "inset 0 4px 20px rgba(0,0,0,0.3)",
+                }}
+              />
+              {/* inner rim light */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  width: size * 0.48,
+                  height: size * 0.48,
+                  border: "1px solid rgba(148,163,184,0.25)",
+                }}
+              />
+            </motion.div>
+          </>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════
+            PULSE  —  energetic star-burst, explosive & alive
+            ═══════════════════════════════════════════════════════ */}
         {variant === "pulse" && (
           <>
+            {/* expanding wave rings */}
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
                 className="absolute inset-0 flex items-center justify-center"
                 aria-hidden
-                initial={{ opacity: 0.35 }}
-                animate={{ scale: [1, 1.6], opacity: [0.3, 0] }}
+                initial={{ opacity: 0.3 }}
+                animate={{ scale: [1, 1.7], opacity: [0.25, 0] }}
                 transition={{
-                  duration: 3.5,
+                  duration: 4,
                   repeat: Infinity,
-                  delay: i * 1.2,
+                  delay: i * 1.4,
                   ease: "easeOut",
                 }}
               >
                 <div
-                  className="rounded-full border border-foreground/15"
-                  style={{ width: size * 1.25, height: size * 1.25 }}
+                  className="rounded-full border border-foreground/12"
+                  style={{ width: size * 1.3, height: size * 1.3 }}
                 />
               </motion.div>
             ))}
+
+            {/* thick rotating boundary */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 flex items-center justify-center"
               aria-hidden
             >
@@ -138,77 +269,60 @@ export function SlateOrb({
                 className="rounded-full border-2 border-foreground/10 flex items-center justify-center"
                 style={{ width: size * 1.35, height: size * 1.35 }}
               >
-                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono -translate-y-[calc(50%+0.5rem)] absolute top-0">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono absolute -top-5">
                   {label}
                 </span>
               </div>
             </motion.div>
-            {/* stronger halo */}
+
+            {/* strong halo */}
             <div
               aria-hidden
-              className="absolute inset-[5%] rounded-full bg-foreground/15 blur-3xl"
+              className="absolute inset-[5%] rounded-full bg-foreground/12 blur-3xl"
             />
-          </>
-        )}
 
-        {/* ─── CORE variant — single clean orbital ring ─── */}
-        {variant === "core" && (
-          <>
+            {/* sculpture — compass star burst */}
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 flex items-center justify-center"
-              aria-hidden
+              className="relative flex items-center justify-center"
+              style={{ width: size, height: size }}
+              animate={{ rotate: [0, 8, -6, 0] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
             >
+              {/* 8-point star */}
+              {[0, 45, 90, 135].map((deg) => (
+                <div
+                  key={deg}
+                  className="absolute"
+                  style={{
+                    width: size * 0.12,
+                    height: size * 0.9,
+                    background:
+                      "linear-gradient(180deg, rgba(148,163,184,0.9) 0%, rgba(71,85,105,0.6) 50%, rgba(30,41,59,0.4) 100%)",
+                    borderRadius: "2px",
+                    transform: `rotate(${deg}deg)`,
+                    boxShadow: "0 20px 40px rgba(30,30,45,0.35)",
+                  }}
+                />
+              ))}
+              {/* center sphere */}
               <div
-                className="rounded-full border border-foreground/15 flex items-center justify-center"
-                style={{ width: size * 1.35, height: size * 1.35 }}
-              >
-                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.34em] text-muted-foreground font-mono -translate-y-[calc(50%+0.5rem)] absolute top-0">
-                  {label}
-                </span>
-              </div>
+                className="absolute rounded-full"
+                style={{
+                  width: size * 0.3,
+                  height: size * 0.3,
+                  background:
+                    "radial-gradient(circle at 35% 35%, #cbd5e1, #64748b, #1e293b)",
+                  boxShadow:
+                    "0 20px 50px rgba(30,30,45,0.5), inset 0 -10px 30px rgba(0,0,0,0.4), 0 0 40px rgba(148,163,184,0.2)",
+                }}
+              />
             </motion.div>
           </>
         )}
 
-        {/* ─── Shared halo (softer for core/prism, stronger handled in pulse) ─── */}
-        {variant !== "pulse" && (
-          <div
-            aria-hidden
-            className="absolute inset-[10%] rounded-full bg-foreground/10 blur-3xl"
-          />
-        )}
-
-        {/* ─── Main slate sculpture ─── */}
-        <motion.img
-          src={slate}
-          alt=""
-          aria-hidden
-          width={1024}
-          height={1024}
-          className="relative object-contain float-mid"
-          style={{
-            width: size,
-            height: size,
-            filter:
-              variant === "prism"
-                ? "drop-shadow(0 30px 60px rgba(30,30,45,0.35)) drop-shadow(0 0 20px rgba(100,116,139,0.12))"
-                : variant === "pulse"
-                ? "drop-shadow(0 50px 100px rgba(30,30,45,0.55)) drop-shadow(0 0 50px rgba(100,116,139,0.25))"
-                : "drop-shadow(0 40px 80px rgba(30,30,45,0.4)) drop-shadow(0 0 30px rgba(100,116,139,0.18))",
-          }}
-          animate={{ rotate: [0, 4, -3, 0] }}
-          transition={{
-            duration: variant === "pulse" ? 16 : 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* ─── Floor reflection ─── */}
+        {/* ─── Floor reflection (shared) ─── */}
         <div
-          className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-[50%] blur-2xl pointer-events-none bg-foreground/25"
+          className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-[50%] blur-2xl pointer-events-none bg-foreground/20"
           style={{ width: size * 0.6, height: 24 }}
           aria-hidden
         />
