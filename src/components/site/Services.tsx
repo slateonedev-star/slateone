@@ -3,28 +3,28 @@ import { motion } from "framer-motion";
 const services = [
   {
     title: "Custom Website",
-    price: "from $449",
+    price: "from $599",
     body: "Hand-coded site built for your business. Mobile-first, fast, and designed to convert visitors into paying customers.",
     featured: true,
   },
   {
     title: "Website Redesign",
-    price: "from $449",
+    price: "from $599",
     body: "Rebuild your tired Wix or WordPress from scratch. Better design, faster load, no platform limits.",
   },
   {
     title: "Hosting & Domain",
-    price: "$15 / month",
+    price: "$20 / month",
     body: "Domain, hosting, getting you live — I handle it all. Set it and forget it.",
   },
   {
     title: "Quick Fixes",
-    price: "from $79",
+    price: "from $99",
     body: "Broken form, wrong info, outdated section? Fast fixes without rebuilding everything.",
   },
   {
     title: "Mobile Optimization",
-    price: "from $119",
+    price: "from $149",
     body: "Most customers find you on a phone. I make sure your site is flawless on every screen.",
   },
   {
