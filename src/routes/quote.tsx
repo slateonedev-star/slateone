@@ -19,27 +19,27 @@ type SiteType = { id: string; label: string; base: number; sub: string };
 type AddOn = { id: string; label: string; price: number; sub: string };
 
 const SITE_TYPES: SiteType[] = [
-  { id: "landing", label: "One-pager", base: 599, sub: "Single scrollable page. 48hr build." },
-  { id: "small", label: "Small Business", base: 1200, sub: "3–5 pages. Services, About, Contact." },
-  { id: "studio", label: "Studio / Portfolio", base: 2400, sub: "Editorial layouts, case-study pages." },
-  { id: "ecom", label: "E-commerce", base: 3800, sub: "Stripe/Shopify, product pages, cart." },
+  { id: "landing", label: "One-pager", base: 449, sub: "Single scrollable page. 48hr build." },
+  { id: "small", label: "Small Business", base: 899, sub: "3–5 pages. Services, About, Contact." },
+  { id: "studio", label: "Studio / Portfolio", base: 1799, sub: "Editorial layouts, case-study pages." },
+  { id: "ecom", label: "E-commerce", base: 2899, sub: "Stripe/Shopify, product pages, cart." },
 ];
 
 const ADD_ONS: AddOn[] = [
-  { id: "cms", label: "Headless CMS", price: 350, sub: "Edit copy & images yourself." },
-  { id: "blog", label: "Blog / Field notes", price: 280, sub: "MDX posts with SEO." },
-  { id: "booking", label: "Booking integration", price: 220, sub: "Cal.com / Calendly inline." },
-  { id: "calc", label: "Custom calculator", price: 480, sub: "Quote engine like this one." },
-  { id: "ai", label: "AI chat assistant", price: 540, sub: "Trained on your business." },
-  { id: "anim", label: "Bespoke animations", price: 620, sub: "WebGL hero, scroll scenes." },
-  { id: "seo", label: "SEO foundation", price: 320, sub: "Schema, OG, sitemap, lighthouse 95+." },
-  { id: "i18n", label: "Bilingual (FR/EN)", price: 380, sub: "Full content translation." },
+  { id: "cms", label: "Headless CMS", price: 260, sub: "Edit copy & images yourself." },
+  { id: "blog", label: "Blog / Field notes", price: 210, sub: "MDX posts with SEO." },
+  { id: "booking", label: "Booking integration", price: 160, sub: "Cal.com / Calendly inline." },
+  { id: "calc", label: "Custom calculator", price: 360, sub: "Quote engine like this one." },
+  { id: "ai", label: "AI chat assistant", price: 410, sub: "Trained on your business." },
+  { id: "anim", label: "Bespoke animations", price: 470, sub: "WebGL hero, scroll scenes." },
+  { id: "seo", label: "SEO foundation", price: 240, sub: "Schema, OG, sitemap, lighthouse 95+." },
+  { id: "i18n", label: "Bilingual (FR/EN)", price: 290, sub: "Full content translation." },
 ];
 
 const SPEED = [
   { id: "standard", label: "Standard · 7 days", mult: 1, sub: "Our default tempo." },
-  { id: "rush", label: "Rush · 48 hours", mult: 1.35, sub: "Drop everything, ship fast." },
-  { id: "stealth", label: "Stealth · 21 days", mult: 0.88, sub: "Quiet build, deeper iteration." },
+  { id: "rush", label: "Rush · 48 hours", mult: 1.25, sub: "Drop everything, ship fast." },
+  { id: "stealth", label: "Stealth · 21 days", mult: 0.85, sub: "Quiet build, deeper iteration." },
 ];
 
 function QuotePage() {
@@ -51,7 +51,7 @@ function QuotePage() {
   const [submitted, setSubmitted] = useState(false);
 
   const total = useMemo(() => {
-    const pageCost = Math.max(0, pages - 1) * 50;
+    const pageCost = Math.max(0, pages - 1) * 40;
     const addonCost = ADD_ONS.filter((a) => addons.has(a.id)).reduce((s, a) => s + a.price, 0);
     return Math.round((site.base + pageCost + addonCost) * speed.mult);
   }, [site, pages, addons, speed]);
@@ -147,7 +147,7 @@ function QuotePage() {
                     />
                     <div className="mt-2 flex justify-between text-[10px] uppercase tracking-[0.22em] font-mono text-muted-foreground">
                       <span>1 · landing</span>
-                      <span>+$50 / extra page</span>
+                      <span>+$40 / extra page</span>
                       <span>20 · large</span>
                     </div>
                   </div>
@@ -239,7 +239,7 @@ function QuotePage() {
 
                   <ul className="mt-6 space-y-2 text-sm text-background/85">
                     <Li label={site.label} value={`$${site.base}`} />
-                    <Li label={`${pages} page${pages > 1 ? "s" : ""}`} value={`+$${Math.max(0, pages - 1) * 50}`} />
+                    <Li label={`${pages} page${pages > 1 ? "s" : ""}`} value={`+$${Math.max(0, pages - 1) * 40}`} />
                     {ADD_ONS.filter((a) => addons.has(a.id)).map((a) => (
                       <Li key={a.id} label={a.label} value={`+$${a.price}`} />
                     ))}

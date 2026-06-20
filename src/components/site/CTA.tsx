@@ -45,7 +45,7 @@ export function CTA() {
               </em>
             </h2>
             <p className="mt-8 text-lg text-background/70 max-w-xl">
-              No deposit. No card. No catch. If you love it, it's $599. If not, you keep the
+              No deposit. No card. No catch. If you love it, it's $449. If not, you keep the
               feedback and we part as friends.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
