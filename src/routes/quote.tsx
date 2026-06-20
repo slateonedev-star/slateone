@@ -26,14 +26,14 @@ const SITE_TYPES: SiteType[] = [
 ];
 
 const ADD_ONS: AddOn[] = [
-  { id: "cms", label: "Headless CMS", price: 260, sub: "Edit copy & images yourself." },
-  { id: "blog", label: "Blog / Field notes", price: 210, sub: "MDX posts with SEO." },
-  { id: "booking", label: "Booking integration", price: 160, sub: "Cal.com / Calendly inline." },
-  { id: "calc", label: "Custom calculator", price: 360, sub: "Quote engine like this one." },
-  { id: "ai", label: "AI chat assistant", price: 410, sub: "Trained on your business." },
-  { id: "anim", label: "Bespoke animations", price: 470, sub: "WebGL hero, scroll scenes." },
-  { id: "seo", label: "SEO foundation", price: 240, sub: "Schema, OG, sitemap, lighthouse 95+." },
-  { id: "i18n", label: "Bilingual (FR/EN)", price: 290, sub: "Full content translation." },
+  { id: "cms", label: "Headless CMS", price: 149, sub: "Edit copy & images yourself." },
+  { id: "blog", label: "Blog / Field notes", price: 99, sub: "MDX posts with SEO." },
+  { id: "booking", label: "Booking integration", price: 79, sub: "Cal.com / Calendly inline." },
+  { id: "calc", label: "Custom calculator", price: 199, sub: "Quote engine like this one." },
+  { id: "ai", label: "AI chat assistant", price: 249, sub: "Trained on your business." },
+  { id: "anim", label: "Bespoke animations", price: 299, sub: "WebGL hero, scroll scenes." },
+  { id: "seo", label: "SEO foundation", price: 129, sub: "Schema, OG, sitemap, lighthouse 95+." },
+  { id: "i18n", label: "Bilingual (FR/EN)", price: 149, sub: "Full content translation." },
 ];
 
 const SPEED = [
