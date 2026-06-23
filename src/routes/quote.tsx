@@ -53,6 +53,14 @@ function QuotePage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const contactSchema = z.object({
+    name: z.string().trim().min(1, "Name is required").max(100, "Name too long"),
+    email: z.string().trim().email("Invalid email").max(255, "Email too long"),
+    message: z.string().trim().min(1, "Message is required").max(2000, "Message too long"),
+  });
 
   const total = useMemo(() => {
     const pageCost = Math.max(0, pages - 1) * 40;
