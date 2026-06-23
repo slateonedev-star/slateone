@@ -254,10 +254,19 @@ function QuotePage() {
                   onSubmit={(e) => {
                     e.preventDefault();
                     const selectedAddons = ADD_ONS.filter((a) => addons.has(a.id));
+                    const trimmedName = name.trim().slice(0, 100);
+                    const trimmedEmail = email.trim().slice(0, 255);
+                    const trimmedMsg = message.trim().slice(0, 1000);
                     const lines = [
-                      `New quote request from: ${email}`,
+                      `New quote request`,
                       ``,
-                      `── Selections ──`,
+                      `Name:  ${trimmedName}`,
+                      `Email: ${trimmedEmail}`,
+                      ``,
+                      `── Message ──`,
+                      trimmedMsg || "(no message)",
+                      ``,
+                      `── Their selections ──`,
                       `Starting point: ${site.label} ($${site.base})`,
                       `Pages: ${pages} (+$${Math.max(0, pages - 1) * 40})`,
                       `Speed: ${speed.label} (×${speed.mult.toFixed(2)})`,
@@ -268,10 +277,8 @@ function QuotePage() {
                         : `  • none`,
                       ``,
                       `── Live total: $${total.toLocaleString()} CAD ──`,
-                      ``,
-                      `Reply-to: ${email}`,
                     ].join("\n");
-                    const subject = `Free preview request — ${site.label} · $${total.toLocaleString()}`;
+                    const subject = `Free preview — ${trimmedName || trimmedEmail} · ${site.label} · $${total.toLocaleString()}`;
                     window.location.href = `mailto:slateone.dev@gmail.com?subject=${encodeURIComponent(
                       subject
                     )}&body=${encodeURIComponent(lines)}`;
@@ -283,35 +290,55 @@ function QuotePage() {
                     <div className="text-center py-4">
                       <div className="font-display text-3xl">Got it.</div>
                       <p className="mt-2 text-sm text-muted-foreground">
-                        We'll send a free preview to <span className="text-foreground">{email}</span> within 24 hours.
+                        Your email app should have opened with the request. Hit send and I'll
+                        reply to <span className="text-foreground">{email}</span> within 24 hours.
                       </p>
                     </div>
                   ) : (
                     <>
-                      <div className="text-[10px] uppercase tracking-[0.3em] font-mono text-muted-foreground mb-3">
-                        Like the number?
+                      <div className="text-[10px] uppercase tracking-[0.3em] font-mono text-muted-foreground mb-4">
+                        Like the number? Send the request
                       </div>
-                      <div className="flex flex-col sm:flex-row gap-2">
+                      <div className="space-y-2">
+                        <input
+                          type="text"
+                          required
+                          maxLength={100}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Your name"
+                          className="w-full rounded-2xl border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-foreground"
+                        />
                         <input
                           type="email"
                           required
+                          maxLength={255}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@business.com"
-                          className="flex-1 rounded-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-foreground"
+                          className="w-full rounded-2xl border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-foreground"
+                        />
+                        <textarea
+                          required
+                          maxLength={1000}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="Tell me about your business — what you do, what you need, any links."
+                          rows={4}
+                          className="w-full rounded-2xl border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-foreground resize-none"
                         />
                         <Magnetic strength={0.25}>
                           <button
                             type="submit"
                             data-cursor="link"
-                            className="shine inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold whitespace-nowrap"
+                            className="shine w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold"
                           >
-                            Get free preview →
+                            Send request — get free preview →
                           </button>
                         </Magnetic>
                       </div>
                       <div className="mt-3 text-[10px] font-mono uppercase tracking-[0.22em] text-muted-foreground">
-                        We design first. You pay only if you love it.
+                        Your selections are included automatically.
                       </div>
                     </>
                   )}
