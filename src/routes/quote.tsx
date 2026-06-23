@@ -261,37 +261,37 @@ function QuotePage() {
 
                 {/* Email capture */}
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
+                    setErrorMsg(null);
+
+                    const parsed = contactSchema.safeParse({ name, email, message });
+                    if (!parsed.success) {
+                      setErrorMsg(parsed.error.issues[0]?.message ?? "Please check your input.");
+                      return;
+                    }
+
+                    setSubmitting(true);
                     const selectedAddons = ADD_ONS.filter((a) => addons.has(a.id));
-                    const trimmedName = name.trim().slice(0, 100);
-                    const trimmedEmail = email.trim().slice(0, 255);
-                    const trimmedMsg = message.trim().slice(0, 1000);
-                    const lines = [
-                      `New quote request`,
-                      ``,
-                      `Name:  ${trimmedName}`,
-                      `Email: ${trimmedEmail}`,
-                      ``,
-                      `── Message ──`,
-                      trimmedMsg || "(no message)",
-                      ``,
-                      `── Their selections ──`,
-                      `Starting point: ${site.label} ($${site.base})`,
-                      `Pages: ${pages} (+$${Math.max(0, pages - 1) * 40})`,
-                      `Speed: ${speed.label} (×${speed.mult.toFixed(2)})`,
-                      ``,
-                      `Add-ons:`,
-                      selectedAddons.length
-                        ? selectedAddons.map((a) => `  • ${a.label} (+$${a.price})`).join("\n")
-                        : `  • none`,
-                      ``,
-                      `── Live total: $${total.toLocaleString()} CAD ──`,
-                    ].join("\n");
-                    const subject = `Free preview — ${trimmedName || trimmedEmail} · ${site.label} · $${total.toLocaleString()}`;
-                    window.location.href = `mailto:slateone.dev@gmail.com?subject=${encodeURIComponent(
-                      subject
-                    )}&body=${encodeURIComponent(lines)}`;
+
+                    const { error } = await supabase.from("quote_requests").insert({
+                      name: parsed.data.name,
+                      email: parsed.data.email,
+                      message: parsed.data.message,
+                      site_type: site.label,
+                      pages,
+                      speed: speed.label,
+                      addons: selectedAddons.map((a) => ({ label: a.label, price: a.price })),
+                      total_cad: total,
+                    });
+
+                    setSubmitting(false);
+
+                    if (error) {
+                      setErrorMsg("Couldn't send — please try again or email slateone.dev@gmail.com.");
+                      return;
+                    }
+
                     setSubmitted(true);
                   }}
                   className="rounded-3xl border border-border p-6 bg-background"
@@ -300,8 +300,8 @@ function QuotePage() {
                     <div className="text-center py-4">
                       <div className="font-display text-3xl">Got it.</div>
                       <p className="mt-2 text-sm text-muted-foreground">
-                        Your email app should have opened with the request. Hit send and I'll
-                        reply to <span className="text-foreground">{email}</span> within 24 hours.
+                        Your request was sent. I'll reply to{" "}
+                        <span className="text-foreground">{email}</span> within 24 hours with a free preview.
                       </p>
                     </div>
                   ) : (
