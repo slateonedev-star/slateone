@@ -340,13 +340,17 @@ function QuotePage() {
                         <Magnetic strength={0.25}>
                           <button
                             type="submit"
+                            disabled={submitting}
                             data-cursor="link"
-                            className="shine w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold"
+                            className="shine w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold disabled:opacity-60"
                           >
-                            Send request — get free preview →
+                            {submitting ? "Sending…" : "Send request — get free preview →"}
                           </button>
                         </Magnetic>
                       </div>
+                      {errorMsg && (
+                        <div className="mt-3 text-xs text-destructive">{errorMsg}</div>
+                      )}
                       <div className="mt-3 text-[10px] font-mono uppercase tracking-[0.22em] text-muted-foreground">
                         Your selections are included automatically.
                       </div>
