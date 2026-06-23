@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      quote_requests: {
+        Row: {
+          addons: Json
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          pages: number
+          site_type: string
+          speed: string
+          total_cad: number
+        }
+        Insert: {
+          addons?: Json
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          pages: number
+          site_type: string
+          speed: string
+          total_cad: number
+        }
+        Update: {
+          addons?: Json
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          pages?: number
+          site_type?: string
+          speed?: string
+          total_cad?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
