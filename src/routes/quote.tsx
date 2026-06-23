@@ -251,6 +251,28 @@ function QuotePage() {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
+                    const selectedAddons = ADD_ONS.filter((a) => addons.has(a.id));
+                    const lines = [
+                      `New quote request from: ${email}`,
+                      ``,
+                      `── Selections ──`,
+                      `Starting point: ${site.label} ($${site.base})`,
+                      `Pages: ${pages} (+$${Math.max(0, pages - 1) * 40})`,
+                      `Speed: ${speed.label} (×${speed.mult.toFixed(2)})`,
+                      ``,
+                      `Add-ons:`,
+                      selectedAddons.length
+                        ? selectedAddons.map((a) => `  • ${a.label} (+$${a.price})`).join("\n")
+                        : `  • none`,
+                      ``,
+                      `── Live total: $${total.toLocaleString()} CAD ──`,
+                      ``,
+                      `Reply-to: ${email}`,
+                    ].join("\n");
+                    const subject = `Free preview request — ${site.label} · $${total.toLocaleString()}`;
+                    window.location.href = `mailto:slateone.dev@gmail.com?subject=${encodeURIComponent(
+                      subject
+                    )}&body=${encodeURIComponent(lines)}`;
                     setSubmitted(true);
                   }}
                   className="rounded-3xl border border-border p-6 bg-background"
