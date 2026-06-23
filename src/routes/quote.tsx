@@ -47,7 +47,9 @@ function QuotePage() {
   const [pages, setPages] = useState(5);
   const [addons, setAddons] = useState<Set<string>>(new Set(["seo"]));
   const [speed, setSpeed] = useState(SPEED[0]);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const total = useMemo(() => {
